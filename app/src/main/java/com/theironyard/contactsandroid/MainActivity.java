@@ -2,6 +2,7 @@ package com.theironyard.contactsandroid;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -35,6 +36,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         items = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
         listView.setAdapter(items);
+
+        phone.addTextChangedListener(new PhoneNumberFormattingTextWatcher()); //formats phone # with parenthesis & dashes
     }
 
     @Override
