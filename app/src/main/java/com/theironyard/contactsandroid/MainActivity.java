@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -31,6 +32,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         phone = (EditText) findViewById(R.id.phone);
         addButton =  (Button) findViewById(R.id.addButton);
 
+        name.setOnKeyListener(new View.OnKeyListener() { //adds contact when user hits ENTER
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                    addContactToList();
+                }
+                return false;
+            }
+        });
+
+        phone.setOnKeyListener(new View.OnKeyListener() { //adds contact when user hits ENTER
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                    addContactToList();
+                }
+                return false;
+            }
+        });
+
         addButton.setOnClickListener(this);
         listView.setOnItemLongClickListener(this);
 
@@ -42,12 +63,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        String text = name.getText().toString();
-        String text2 = phone.getText().toString();
-        items.add(text + " (" + text2 + ")");
-
-        name.setText("");
-        phone.setText("");
+        addContactToList();
     }
 
     @Override
@@ -55,5 +71,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String itemToRemove = items.getItem(position);
         items.remove(itemToRemove);
         return true;
+    }
+
+    private void addContactToList() {
+        String text = name.getText().toString();
+        String text2 = phone.getText().toString();
+        items.add(text + " (" + text2 + ")");
+
+        name.setText("");
+        phone.setText("");
     }
 }
