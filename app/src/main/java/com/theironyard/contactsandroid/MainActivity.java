@@ -71,9 +71,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String itemToRemove = items.getItem(position);
         items.remove(itemToRemove);
         return true;
+        //"adapter.remove(adapter.getItemPosition());" -> Zach used instead of the below:
+        // String itemToRemove = items.getItem(position);
+        // items.remove(itemToRemove);
     }
 
-    private void addContactToList() {
+    private void addContactToList() { //method created to feed into other methods to reduce repetitive typing
         String text = name.getText().toString();
         String text2 = phone.getText().toString();
         items.add(text + " (" + text2 + ")");
